@@ -15,6 +15,5 @@ class Solution(object):
                     nums1[i] = nums1[m-1]
                     m -= 1
             elif n > 0:
-
                 nums1[i] = nums2[n-1]
                 n -= 1
