@@ -1,20 +1,20 @@
-def shift(index, nums1, filled):
-
-    for i in range(filled - 1, index - 1, -1):
-        nums1[i + 1] = nums1[i]
-
 class Solution(object):
     def merge(self, nums1, m, nums2, n):
-        index1 = 0
-        index2 = 0
-        filled = m
+        max1 = m
+        max2 = n
+        index_list = m + n 
+        for i in range(index_list-1,-1,-1):
+            if((m > 0) and (n > 0)):
+                if(nums1[m-1] < nums2[n-1]):
+                    nums1[i] = nums2[n-1]
+                    n -= 1
+                elif(nums1[m-1] > nums2[n-1]):
+                    nums1[i] = nums1[m-1]
+                    m -= 1
+                else:
+                    nums1[i] = nums1[m-1]
+                    m -= 1
+            elif n > 0:
 
-        while index2 < n:
-            if index1 < filled and nums1[index1] < nums2[index2]:
-                index1 += 1
-            else:
-                shift(index1, nums1, filled)
-                nums1[index1] = nums2[index2]
-                filled += 1
-                index1 += 1
-                index2 += 1
+                nums1[i] = nums2[n-1]
+                n -= 1
