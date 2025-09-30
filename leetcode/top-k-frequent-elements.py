@@ -1,13 +1,28 @@
 class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
-        seen = {}
+        nums.sort()
+        order = []
+        freq_arr = []
 
+        y=1
+        freq = 0
         for i in range(len(nums)):
-            if(nums[i] not in seen):
-                seen[nums[i]]= nums.count(nums[i])
+            #print("i")
+            if(nums[i] == nums[i-1 + y]):
+                y = 0
+                freq += 1
+
+            else:
+                #print(freq_arr)
+                freq_arr.append(freq)
+                order.append(nums[i-1])
+                freq = 1
+        order.append(nums[i])
+        freq_arr.append(freq)
         ret = []
-        for s in range (k):
-                top_key = max(seen, key=seen.get)  
-                ret.append(top_key)                
-                del seen[top_key]    
+        for i in range(k):
+            r = max(freq_arr)
+            f = freq_arr.index(r)
+            ret.append(order[f])            
+            freq_arr[f] = 0
         return ret
