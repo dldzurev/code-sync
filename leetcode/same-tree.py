@@ -13,7 +13,6 @@ class Solution:
                 return False
             elif(p.val != q.val):
                 return False
-            elif(not p.right and not p.left and not q.right and not q.left ):
-                return True
+
             return (bfs(p.left,q.left) and bfs(p.right,q.right))
         return bfs(p,q)
