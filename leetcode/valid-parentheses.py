@@ -1,13 +1,20 @@
-class Solution(object):
-    def isValid(self, s):
+class Solution:
+    def isValid(self, s: str) -> bool:
+        my_hash = {
+            "}":"{",
+            ")":"(",
+            "]":"["
+        }
         stack = []
-        mapping = {')': '(', ']': '[', '}': '{'}
-
         for char in s:
-            if char in mapping:
-                top_element = stack.pop() if stack else '#'
-                if mapping[char] != top_element:
+            if(char in my_hash):
+                if(not stack):
                     return False
+                if(stack[-1] != my_hash[char]):
+                    return False
+                stack.pop()
             else:
                 stack.append(char)
-        return not stack
+
+  
+        return len(stack) == 0
