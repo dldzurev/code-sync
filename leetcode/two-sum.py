@@ -1,9 +1,11 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        seen = {}
-        i = 0
-        for x in nums:
-            need = target - x
-            if need in seen: return i, seen[need]
-            else: seen[x] = i
-            i += 1
+        op = []
+        seen  = {} # key = val, val = index
+        for i in range(len(nums)):
+            need = target - nums[i] 
+            if need in seen:
+                op.extend((i,seen[need]))
+            seen[nums[i]] = i
+
+        return op
