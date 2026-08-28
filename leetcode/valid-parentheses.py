@@ -1,20 +1,25 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        my_hash = {
+        #last item in stack2 must be the oposit of last of stack1 or open bracket
+        bracket_map = {
             "}":"{",
-            ")":"(",
-            "]":"["
+            "]":"[",
+            ")":"("
         }
-        stack = []
+        popped_stack = []
+        
         for char in s:
-            if(char in my_hash):
-                if(not stack):
+            if char in bracket_map:
+                #its a closing bracket
+                if not popped_stack:
                     return False
-                if(stack[-1] != my_hash[char]):
-                    return False
-                stack.pop()
-            else:
-                stack.append(char)
 
-  
-        return len(stack) == 0
+                x = popped_stack.pop()
+                if not(x == bracket_map[char]):
+                    return False
+            else:
+                popped_stack.append(char)
+        if len(popped_stack) == 0:
+            return True
+        else:
+            return False
