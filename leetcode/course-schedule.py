@@ -20,5 +20,4 @@ class Solution:
                     completed.add(cor)
                     queue.append(cor)
             del pre_cor[popped]
-
         return len(pre_cor) == 0
