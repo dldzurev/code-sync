@@ -10,7 +10,7 @@ class NumArray:
     def update(self, index: int, val: int) -> None:
         for i in range(index,len(self.nums)):
             self.prefix[i] = self.prefix[i] + val - self.nums[index]
-            self.nums[index] = val
+        self.nums[index] = val
 
     def sumRange(self, left: int, right: int) -> int:
         if (left == 0):
