@@ -1,7 +1,9 @@
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        seen = {}
+        #target -> index
+        targ_map = {}
         for index,num in enumerate(nums):
-            need = target - num
-            if need in seen:return index,seen[need]
-            else: seen[num] = index
+            targ = target - num
+            if(targ in targ_map):
+                return [targ_map[targ],index]
+            targ_map[num] = index
