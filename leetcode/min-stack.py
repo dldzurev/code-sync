@@ -1,24 +1,27 @@
 class MinStack:
 
     def __init__(self):
-        # Initialize your data structure here
+        # init
         self.stack = []
-        self.min_stack = []
+        self.min_heap = []
 
     def push(self, val: int) -> None:
-        if not self.min_stack:
-            self.min_stack.append(val)
-        else:
-            self.min_stack.append(min(self.min_stack[-1],val))
         self.stack.append(val)
-
+        if self.min_heap:
+            push = min(val,self.min_heap[0])
+        else:
+            push = val
+        heapq.heappush(self.min_heap,push)
+        # push val onto stack
     def pop(self) -> None:
-        self.min_stack.pop()
+        # remove element at top of stack
         self.stack.pop()
+        heapq.heappop(self.min_heap)
 
     def top(self) -> int:
+        #get top element of the stack
         return self.stack[-1]
 
     def getMin(self) -> int:
-        return self.min_stack[-1]
-        # Return the minimum element in the stack
+        return self.min_heap[0]
+        # min element in stack
