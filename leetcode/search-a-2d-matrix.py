@@ -1,25 +1,28 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
-        col = 0
-        m = len(matrix[0]) - 1#cols
-        row = 0
-        n = len(matrix) - 1# rows
-        mid_row = 0
-        while(row <= n):
-            mid_row = row + (n-row)//2
-            if(matrix[mid_row][0] <= target <= matrix[mid_row][m]):
-                break
+        rows = len(matrix)
+        cols = len(matrix[0])
+        top = 0
+        bottom = rows-1
+        while(top <= bottom):
+            mid_row = (top+bottom)//2
+            if(matrix[mid_row][-1] < target):
+                top = mid_row+1
             elif(matrix[mid_row][0] > target):
-                n= mid_row - 1
+                bottom = mid_row-1
             else:
-                row = mid_row + 1
-        else: return False
-        while(col <= m):
-            mid_col = col + (m-col)//2
-            if matrix[mid_row][mid_col] == target:
+                break
+        if(top > bottom):
+            return False
+        row = (top + bottom )//2
+        left = 0
+        right = cols
+        while(left <=right):
+            mid = (left+right)//2
+            if(target == matrix[row][mid]):
                 return True
-            elif(matrix[mid_row][mid_col] > target):
-                m = mid_col - 1
+            if(matrix[row][mid] > target):
+                right = mid - 1
             else:
-                col = mid_col + 1
+                left = mid + 1
         return False
