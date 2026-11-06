@@ -1,20 +1,26 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
-        #([])
-        bracket_map = {
-            "]" : "[",
-            "}" : "{",
-            ")" : "("
+class Solution {
+public:
+    bool isValid(string s) {
+        // if we hit a close we need a the samme open
+        std::unordered_map<char,char> map;
+        map['}'] = '{';
+        map[']'] = '[';
+        map[')'] = '(';
+        std::stack<char> my_stack;
+        for(char b :s){
+            if(map.count(b)){
+                if(my_stack.empty() || !(my_stack.top() == map[b])){
+                    return false;
+                }
+                my_stack.pop();
+            }else{
+                my_stack.push(b);
+            }
         }
-        popped_stack = []#([
-        for bracket in s:#]
-
-            if bracket in bracket_map and popped_stack:
-                if  bracket_map[bracket] != popped_stack[-1]:
-                    return False
-                popped_stack.pop()
-            else:
-                popped_stack.append(bracket)
-                
-            
-        return (len(popped_stack) == 0)
+        if(my_stack.size() > 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+};
