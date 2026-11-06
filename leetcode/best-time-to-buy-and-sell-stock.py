@@ -1,8 +1,20 @@
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        max_profit = 0
-        min_buy = 99999
-        for p in prices:
-            if max_profit < (p - min_buy): max_profit = p - min_buy
-            if min_buy > p: min_buy = p
-        return max_profit
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        
+        int left= 0;
+        int right = 1;
+        int curr_max = 0;
+        int curr_sum = 0;
+        while(right < prices.size()){
+            if(prices[right] < prices[left]){
+                left = right;     
+            }
+            if((prices[right] - prices[left]) > curr_max){
+                curr_max = prices[right] - prices[left];
+            }
+            right ++;
+        }
+        return curr_max;
+    }
+};
