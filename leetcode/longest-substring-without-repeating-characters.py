@@ -1,15 +1,26 @@
-class Solution:
-    def lengthOfLongestSubstring(self, s: str) -> int:
-        seen =deque()#p
-        seen_set = set()
-        curr_max = 0#2
-        tot_max = 0#2
-        for string in s:#w
-            while(string in seen_set):
-                seen_set.discard(seen.popleft())
-                curr_max -=1
-            seen.append(string)
-            seen_set.add(string)
-            curr_max+=1
-            tot_max = max(tot_max,curr_max)
-        return tot_max
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        std::unordered_set<char> curr_window;
+        int left=0;
+        int right=1;
+        int max=1;
+        if(s.size() == 0){
+            return false;
+        }
+        curr_window.insert(s[0]);
+        while(right < s.size()){
+            
+            while(curr_window.count(s[right])){
+                curr_window.erase(s[left]);
+                left++;
+            }
+            curr_window.insert(s[right]);
+            if((right-left+1) > max){
+                max = right-left+1;
+            }
+            right ++;
+        }
+        return max;
+    }
+};
