@@ -1,9 +1,18 @@
-class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        #target -> index
-        targ_map = {}
-        for index,num in enumerate(nums):
-            targ = target - num
-            if(targ in targ_map):
-                return [targ_map[targ],index]
-            targ_map[num] = index
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        std::unordered_map<int,int> seen;
+        int i = 0;
+        for(int num:nums){
+            int need = target - num;
+            if(seen.count(need)){
+                std::vector<int> ret = {i,seen[need]}; 
+                return ret;
+            }
+            seen[num] = i;
+            i++;
+        }
+        return {};
+    }
+    
+};
