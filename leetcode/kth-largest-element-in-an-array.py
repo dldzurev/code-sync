@@ -1,8 +1,13 @@
-class Solution:
-    def findKthLargest(self, nums: List[int], k: int) -> int:
-        heap = []
-        for num in nums:
-            heapq.heappush(heap,num)
-            if len(heap) > k:
-                heapq.heappop(heap)
-        return heap[0]
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        std::priority_queue<int> heap;
+        for(int num:nums){
+            heap.push(num);
+        }
+        for(int i = 0 ; i<(k-1);i++){
+            heap.pop();
+        }
+        return heap.top();
+    }
+};
