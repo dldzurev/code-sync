@@ -1,10 +1,13 @@
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        anagram_map = {}
+        my_dict = {}
         for string in strs:
-            sorted_string = "".join(sorted(string))
-            if sorted_string in anagram_map:
-                anagram_map[sorted_string].append(string)
+            base = "".join(sorted(string))
+            if(base in my_dict):
+                my_dict[base].append(string)
             else:
-                anagram_map[sorted_string] = [string]
-        return list(anagram_map.values())
+                my_dict[base]=[string]
+        if(my_dict):
+            return list(my_dict.values())
+        else:
+            return list("")
