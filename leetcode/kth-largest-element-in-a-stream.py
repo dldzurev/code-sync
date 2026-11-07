@@ -1,32 +1,19 @@
-class KthLargest {
-public:
-    priority_queue<int, vector<int>, greater<int>> min_heap;
-    int k;
+class KthLargest:
 
-    KthLargest(int k, vector<int>& nums) {
-        this->k=k;
-        for(int num:nums){
-            min_heap.push(num);
-            if(min_heap.size() > k) {
-                min_heap.pop();
-            }
-        }
+    def __init__(self, k: int, nums: List[int]):
+        self.nums = nums
+        self.k = k
+        heapq.heapify(self.nums)
+        while(len(self.nums) > k):
+            heapq.heappop(self.nums)
 
-    }
-    
-    int add(int val) {
-        min_heap.push(val);
+    def add(self, val: int) -> int:
+        heapq.heappush(self.nums,val)
+        if(len(self.nums) > self.k):
+            heapq.heappop(self.nums)
+        return self.nums[0]
 
-        if(min_heap.size() > k) {
-            min_heap.pop();
-        }
 
-        return min_heap.top();
-    }
-};
-
-/**
- * Your KthLargest object will be instantiated and called as such:
- * KthLargest* obj = new KthLargest(k, nums);
- * int param_1 = obj->add(val);
- */
+# Your KthLargest object will be instantiated and called as such:
+# obj = KthLargest(k, nums)
+# param_1 = obj.add(val)
