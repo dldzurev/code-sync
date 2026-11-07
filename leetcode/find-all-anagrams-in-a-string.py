@@ -1,33 +1,19 @@
-class Solution {
-public:
-    vector<int> findAnagrams(string s, string p) {
-        std::vector<int> freq(26,0);
-        for(char c:p){
-            freq[c - 'a']++;
-        }
-        std::vector<int> indices;
-        std::vector<int> o_freq(26,0);
-        o_freq[s[0]-'a']++;
-        if(o_freq == freq){
-            indices.push_back(0);
-        }
-        int left = 0;
-        int right = 0;
-        while(right < (s.size()-1)){
-            if((right - left + 1) < p.size()){
-                right++;
-                o_freq[s[right]-'a'] ++;
-            }else{
-                o_freq[s[left] - 'a'] --;
-                left ++;
-                right ++;
-                o_freq[s[right] - 'a']++;
-            }
-            if(o_freq == freq){
-                indices.push_back(left);
-            }
-
-        }
-        return indices;
-    }
-};
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> list[int]:
+        left = 0
+        right = len(p)-1
+        freq_have = Counter(s[:len(p)-1])
+        freq_need = Counter(p)
+        ret = []
+        while(right < len(s)):
+            freq_have[s[right]] = 1 + freq_have.get(s[right],0)
+            if(freq_have == freq_need):
+                ret.append(left)
+            if(freq_have[s[left]] == 1):
+                del freq_have[s[left]]
+            else:
+                freq_have[s[left]] -= 1
+            left +=1
+            right +=1
+       
+        return ret
