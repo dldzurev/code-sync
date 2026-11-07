@@ -8,8 +8,6 @@ class Solution:
             prefix[i] = prefix[i-1]*nums[i-1]
             suffix[-i -1] = suffix[-i] * nums[-i]
         res = []
-        print(prefix)
-        print(suffix)
         for i in range(len(nums)):
             res.append(prefix[i]*suffix[i])
         return res
