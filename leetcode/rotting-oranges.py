@@ -1,36 +1,43 @@
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
-        rotten = []
-        fresh_oranges = 0
-        for row in range(len(grid)):
-            for col in range(len(grid[0])):
-                if grid[row][col] == 2:
-                    rotten.append([row,col])
-                elif grid[row][col] == 1:
-                    fresh_oranges +=1
-        if not fresh_oranges: return 0
-        time = 0 
-        while rotten: 
-            time+=1
-            to_rot = []
-            while(rotten):
-                row,col = rotten.pop()
-                if(row + 1 < len(grid) and grid[row+1][col] == 1):
-                    to_rot.append([row+1,col])
-                    grid[row+1][col] = 2
-                    fresh_oranges -=1
-                if(row - 1 >= 0 and grid[row-1][col] == 1):
-                    to_rot.append([row-1,col])
-                    grid[row-1][col] = 2
-                    fresh_oranges -=1
-                if(col + 1 < len(grid[0]) and grid[row][col+1] == 1):
-                    to_rot.append([row,col+1])
-                    grid[row][col+1]= 2
-                    fresh_oranges -=1
-                if(col - 1 >= 0 and grid[row][col-1] == 1):
-                    to_rot.append([row,col-1])
-                    grid[row][col-1] = 2
-                    fresh_oranges -=1
-            rotten.extend(to_rot)
-        if fresh_oranges > 0: return -1
-        return time-1
+        rotten = deque()
+        num_ripe = 0
+        time = 0
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if(grid[i][j] == 2):
+                    rotten.append([i,j])#row,col
+                elif(grid[i][j] == 1):
+                    num_ripe +=1
+        seen = set()
+        q = deque()
+        print()
+        while(rotten):
+            for i in range(len(rotten)):
+                row,col = rotten.popleft()
+                if((row,col) not in seen):
+                    seen.add((row,col))
+                    if((row,col+1) not in seen and col+1 < len(grid[0]) and grid[row][col+1] == 1):
+                        grid[row][col+1] = 2
+                        num_ripe-=1
+                        q.append([row,col+1])
+                    if((row,col-1) not in seen and col-1 >= 0 and grid[row][col-1] == 1):
+                        grid[row][col-1] = 2
+                        num_ripe-=1
+                        q.append([row,col-1])
+                    if((row+1,col) not in seen and row+1 < len(grid) and grid[row+1][col] == 1):
+                        grid[row+1][col] = 2
+                        num_ripe-=1
+                        q.append([row+1,col])
+                    if((row-1,col) not in seen and row-1 >= 0 and grid[row-1][col] == 1):
+                        grid[row-1][col] = 2
+                        num_ripe-=1
+                        q.append([row-1,col])
+            if q: time += 1
+            rotten = q
+            q = deque()
+        if(num_ripe > 0):
+            print(time)
+            return -1
+        else:
+            return time
