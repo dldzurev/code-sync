@@ -1,15 +1,13 @@
 class Solution:
     def floodFill(self, image: list[list[int]], sr: int, sc: int, color: int) -> list[list[int]]:
-        start = image[sr][sc]#0
-        queue = deque()#[0,0]
+        start = image[sr][sc]
+        queue = deque()
         if(start == color):
             return image
         queue.append([sr,sc])
         directions = [[0,1],[0,-1],[1,0],[-1,0]]
         image[sr][sc] = color
-        print(image)
         while(queue):
-            #print(image)
             r,c = queue.popleft()
             for r_,c_ in directions:
                 n_r = r + r_
